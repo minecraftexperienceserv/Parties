@@ -135,10 +135,14 @@ public class CommandKick extends PartiesSubCommand {
 		} else {
 			// Not found
 			sendMessage(sender, partyPlayer, Messages.PARTIES_COMMON_PLAYER_NOT_FOUND
-					.replace("%player%", playerName));
+				.replace("%player%", playerName));
 			return;
 		}
-		
+
+		if(playerUUID == null) {
+			playerUUID = PartiesPlugin.getInstance().
+		}
+
 		OfflineUser kickedPlayer = plugin.getOfflinePlayer(playerUUID);
 		PartyPlayerImpl kickedPp = ((PartiesPlugin) plugin).getPlayerManager().getPlayer(playerUUID);
 		
@@ -218,6 +222,10 @@ public class CommandKick extends PartiesSubCommand {
 				// Normal
 				if (kickedPlayer.isOnline()) {
 					// Online
+					kickedPp.sendMessage(Messages.MAINCMD_KICK_PLAYERKICKED, partyPlayer);
+				}
+				else {
+					// Offline
 					kickedPp.sendMessage(Messages.MAINCMD_KICK_PLAYERKICKED, partyPlayer);
 				}
 				
